@@ -15,7 +15,7 @@
 <table border="1" width="700px">
 	<tr>
 		<td>아이디</td>
-		<td>이름</td>
+		<td>네임</td>
 		<td>이메일</td>
 		<td>가입일자</td>
 	</tr>
