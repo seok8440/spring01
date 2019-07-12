@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!-- 다른 mapper와 중복되지 않도록 네임스페이스 기재 -->
+<mapper namespace="member">
+	<select id="memberList" resultType="memberDto">
+		select * from member order by name
+	</select>
+	
+	<insert id ="insertMember">                             
+		insert into member(userid,passwd,name,email)
+		<!-- #{}변수들은 DTO에 변수명과 일치해야함 -->
+		values(#{userid},#{passwd},#{name},#{email}) 
+	</insert>
+	
+	<select id="viewMember" resultType="memberDto">
+		select * from member
+		where userid=#{userid}
+	</select>
+	
+	<update id="updateMember">
+		update member
+		set passwd=#{passwd}, name=#{name}, email=#{email}
+		where userid=#{userid}
+	</update>
+	
+	<delete id ="deleteMember">
+		delete from member
+		where userid=#{userid}
+	</delete>
+	
+	<select id="checkPw" resultType="int">
+		select count(*) from member
+		where userid=#{userid} and passwd=#{passwd}
+	</select>
+</mapper>
+
+<!-- @Override
+	public List<MemberDTO> memberList() {
+		logger.info("memberList called...");
+		// sql mapper에 작성된 sql 코드가 실행됨(auto commit & close)
+		return sqlSession.selectList("member.memberList");  (member는 namespace로 memberList는 select id로 매핑됨)
+	} -->
+
+
+<!-- src/main/resources/mybatis/mybatis-config.xml 추가하기 (줄임말 만들기 type에 있는걸 alias에 있는 이름으로 바꿔씀)-->
+<!-- <typeAliases>
+		<typeAlias alias="memberDto" type=com.example.spring01.model.dto.MemberDTO" />
+	</typeAliases>
+ -->

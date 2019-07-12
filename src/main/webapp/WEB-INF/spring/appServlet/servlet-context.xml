@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans:beans xmlns="http://www.springframework.org/schema/mvc"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:beans="http://www.springframework.org/schema/beans"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context.xsd">
+
+	<!-- Spring MVC @Controller 프로그래밍 모델을 가능하게함 -->
+	<annotation-driven />
+
+	<!-- $ {webappRoot}/resources 디렉토리의 정적 리소스를 효율적으로 제공하여 /resources/**에 대한 HTTP GET 요청을 처리 -->
+	<resources mapping="/resources/**" location="/resources/" />
+
+	<!-- @Controllers가 /WEB-INF/views 디렉토리의 .jsp 자원으로 렌더링하기 위해 선택한 보기를 해석 -->
+	<beans:bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<beans:property name="prefix" value="/WEB-INF/views/" />
+		<beans:property name="suffix" value=".jsp" />
+	</beans:bean>
+	
+	<!-- 스프링 빈을 태그로 등록하지 않고 자동으로 검색(auto scan) --> 
+	<context:component-scan base-package="com.example.spring01" />
+
+</beans:beans>
